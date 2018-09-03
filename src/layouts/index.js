@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
+import Header from "../components/Layout/Header/Header";
 
 class Template extends React.Component {
   render() {
@@ -7,15 +8,11 @@ class Template extends React.Component {
     let header;
     if (location.pathname === '/') {
       header = (
-        <h1>
-          <Link to={'/'}>Blog</Link>
-        </h1>
+        <Header />
       );
     } else {
       header = (
-        <h3>
-          <Link to={'/'}>Blog</Link>
-        </h3>
+        <Header />
       );
     }
     return (
