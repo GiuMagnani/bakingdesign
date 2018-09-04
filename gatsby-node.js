@@ -52,7 +52,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             path: `/${edge.node.slug}/`,
             component: slash(pageTemplate),
             context: {
-              id: edge.node.id,
+              slug: edge.node.slug,
             },
           });
         });
@@ -85,7 +85,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               path: `/${edge.node.slug}/`,
               component: slash(pageTemplate),
               context: {
-                id: edge.node.id,
+                slug: edge.node.slug,
               },
             });
           });

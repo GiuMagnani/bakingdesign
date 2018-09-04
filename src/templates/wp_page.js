@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
+import React, { Component } from 'react';
+import styled from 'styled-components';
 // import TopNavigation from '../components/Layout/Navigation/Navigation'
 
 class wpPage extends Component {
@@ -8,8 +8,10 @@ class wpPage extends Component {
       title: this.props.data.wordpressPage.title,
       content: this.props.data.wordpressPage.content,
       id: this.props.data.wordpressPage.id,
-      slug: this.props.data.wordpressPage.slug
-    }
+      slug: this.props.data.wordpressPage.slug,
+    };
+
+    console.log(this.props);
 
     return (
       <div>
@@ -21,11 +23,11 @@ class wpPage extends Component {
           </main>
         </MainContentContainer>
       </div>
-    )
+    );
   }
 }
 
-export default wpPage
+export default wpPage;
 
 const MainContentContainer = styled.main`
   max-width: 800px;
@@ -45,7 +47,7 @@ const MainContentContainer = styled.main`
   pre {
     background-color: grey;
   }
-`
+`;
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
@@ -59,4 +61,4 @@ export const pageQuery = graphql`
       content
     }
   }
-`
+`;
