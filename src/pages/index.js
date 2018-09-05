@@ -5,7 +5,6 @@ import config from '../../data/SiteConfig';
 import PostListing from '../Posts/PostListing/PostListing';
 import SEO from '../components/SEO/SEO';
 import ProjectListing from '../Projects/ProjectListing/ProjectListing';
-// import TopNavigation from '../components/Layout/Navigation/Navigation'
 
 class Index extends React.Component {
   render() {
@@ -16,6 +15,8 @@ class Index extends React.Component {
       <div>
         <Helmet title={config.siteTitle} />
         <SEO postEdges={postEdges} />
+        <em>When in doubt</em>
+        <h2>Do it all</h2>
         <div>
           <hr />
           <strong>Projects:</strong>
@@ -59,6 +60,20 @@ export const pageQuery = graphql`
       }
     }
     allWordpressWpProject {
+      edges {
+        node {
+          title
+          slug
+          categories {
+            name
+          }
+          featured_media {
+            source_url
+          }
+        }
+      }
+    }
+    allWordpressPage {
       edges {
         node {
           title

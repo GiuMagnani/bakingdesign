@@ -2,7 +2,6 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import config from '../../data/SiteConfig'
-// import TopNavigation from '../components/Layout/Navigation/Navigation'
 import PostListing from '../Posts/PostListing/PostListing'
 
 export default class CategoryTemplate extends React.Component {
@@ -13,7 +12,6 @@ export default class CategoryTemplate extends React.Component {
     return (
       <div className="tag-container">
         <Helmet title={`Posts tagged as "${category}" | ${config.siteTitle}`} />
-        {/*<TopNavigation />*/}
         <MainContentContainer>
           <h1>Category: {category}</h1>
           <PostListing postEdges={postEdges} />

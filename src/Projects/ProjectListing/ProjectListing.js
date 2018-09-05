@@ -4,21 +4,19 @@ import Link from 'gatsby-link';
 
 class ProjectListing extends React.Component {
   getProjects() {
-    const Projects = [];
-    this.props.projectEdges.forEach(postEdge => {
-      Projects.push({
+    return this.props.projectEdges.map(postEdge => {
+      return {
         path: `/${postEdge.node.slug}`,
         // cover: postEdge.node.cover,
         title: postEdge.node.title,
         // excerpt: postEdge.node.excerpt,
-        // mainCategory: postEdge.node.categories[0].name,
+        mainCategory: postEdge.node.categories && postEdge.node.categories[0].name,
         // authorName: postEdge.node.author.name,
-        // featuredImg: postEdge.node.featured_media
-        //   ? postEdge.node.featured_media.source_url
-        //   : false,
-      });
+        featuredImg: postEdge.node.featured_media
+          ? postEdge.node.featured_media.source_url
+          : false,
+      };
     });
-    return Projects;
   }
 
   render() {
@@ -29,14 +27,15 @@ class ProjectListing extends React.Component {
         projectList.map(post => (
           <PostListContainer key={post.path}>
             <Link className="post-link" to={post.path} key={post.title}>
-              {/*{post.featuredImg && (*/}
-                {/*<img*/}
-                  {/*src={post.featuredImg}*/}
-                  {/*alt={post.title}*/}
-                  {/*className="featured-image"*/}
-                {/*/>*/}
-              {/*)}*/}
+              {post.featuredImg && (
+                <img
+                  src={post.featuredImg}
+                  alt={post.title}
+                  className="featured-image"
+                />
+              )}
               <h3>{post.title}</h3>
+              <h5>{post.mainCategory}</h5>
               {/*<h5>*/}
                 {/*{post.date} in {post.mainCategory} by {post.authorName}*/}
               {/*</h5>*/}

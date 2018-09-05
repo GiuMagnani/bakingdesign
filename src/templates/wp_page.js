@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-// import TopNavigation from '../components/Layout/Navigation/Navigation'
 
 class wpPage extends Component {
   render() {
@@ -15,7 +14,6 @@ class wpPage extends Component {
 
     return (
       <div>
-        {/*<TopNavigation />*/}
         <MainContentContainer>
           <h1>{pageNode.title}</h1>
           <main>

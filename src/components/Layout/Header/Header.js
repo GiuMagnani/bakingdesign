@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 
 class Header extends Component {
   render() {
+    console.log(this.props.links);
     return (
       <header>
-        BAKING DESIGN CRAFTS
+        <a href="/">BAKING DESIGN CRAFTS</a>
         <div>
-          <a href="#">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
+          <a href="/work">Work</a>
+          {
+            this.props.links.map((link, key) => (
+              <a href={`/${link.node.slug}`} key={key}>{link.node.title}</a>
+            ))
+          }
         </div>
       </header>
     )
