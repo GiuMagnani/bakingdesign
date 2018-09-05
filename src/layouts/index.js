@@ -39,7 +39,6 @@ export default class MainLayout extends React.Component {
     return title;
   }
   render() {
-    const links = this.props.data.allWordpressPage.edges;
     const { children } = this.props;
     return (
       <div>
@@ -47,22 +46,9 @@ export default class MainLayout extends React.Component {
           <title>{`${config.siteTitle} |  ${this.getLocalTitle()}`}</title>
           <meta name="description" content={config.siteDescription} />
         </Helmet>
-        <Header links={links} />
+        <Header />
         {children()}
       </div>
     );
   }
 }
-
-export const pageQuery = graphql`
-  query RootQuery {
-    allWordpressPage {
-      edges {
-        node {
-          title
-          slug
-        }
-      }
-    }
-  }
-`;

@@ -8,11 +8,10 @@ class Header extends Component {
         <a href="/">BAKING DESIGN CRAFTS</a>
         <div>
           <a href="/work">Work</a>
-          {
-            this.props.links.map((link, key) => (
-              <a href={`/${link.node.slug}`} key={key}>{link.node.title}</a>
-            ))
-          }
+          <a href="/about-me">About Me</a>
+          <a href="/courses">Courses</a>
+          <a href="/shop">Shop</a>
+          <a href="/contact">Contact</a>
         </div>
       </header>
     )
