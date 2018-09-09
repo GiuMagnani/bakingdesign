@@ -7,6 +7,7 @@
     "url": ""
   },
   "dependencies": {
+    "dotenv": "^6.0.0",
     "gatsby": "^1.8.12",
     "gatsby-link": "^1.6.8",
     "gatsby-plugin-catch-links": "^1.0.24",
@@ -18,6 +19,7 @@
     "gatsby-plugin-react-helmet": "^1.0.3",
     "gatsby-plugin-sharp": "^1.6.48",
     "gatsby-plugin-sitemap": "^1.2.25",
+    "gatsby-plugin-stripe-checkout": "^1.0.6",
     "gatsby-plugin-styled-components": "^2.0.11",
     "gatsby-plugin-twitter": "^1.0.20",
     "gatsby-remark-copy-linked-files": "^1.5.2",
@@ -31,10 +33,9 @@
     "gatsby-transformer-sharp": "^1.6.1",
     "lodash": "^4.15.0",
     "lodash-webpack-plugin": "^0.11.5",
-    "styled-components": "^2.4.0",
     "react": "^15.6.1",
     "react-helmet": "^5.2.0",
-    "dotenv": "^6.0.0"
+    "styled-components": "^2.4.0"
   },
   "devDependencies": {
     "gh-pages": "^0.12.0",

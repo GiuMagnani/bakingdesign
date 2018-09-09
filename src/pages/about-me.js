@@ -2,17 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'gatsby-link';
 import ProjectListing from '../Projects/ProjectListing/ProjectListing';
-import Checkout from "../components/checkout";
 
-class Shop extends React.Component {
+class AboutMe extends React.Component {
   render() {
     return (
       <div>
-        <h2>shop!</h2>
-        <Checkout />
+        <h2>About!</h2>
       </div>
     );
   }
 }
 
-export default Shop;
+export default AboutMe;

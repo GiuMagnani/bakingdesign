@@ -28,6 +28,7 @@ module.exports = {
   plugins: [
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-stripe-checkout',
     {
       resolve: 'gatsby-source-wordpress',
       options: {

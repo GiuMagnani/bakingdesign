@@ -9,7 +9,9 @@ class Contact extends React.Component {
       <div>
         <h2>contact me</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolore incidunt libero obcaecati similique sit.</p>
-        <form name="contact" method="POST" netlify>
+        {/*<form name="contact" method="POST" data-netlify="true" action="/thanks/">*/}
+        <form name="contact">
+          {/*<input type="hidden" name="form-name" value="contact" />*/}
           <p>
             <label>Name <input type="text" name="name" /></label>
           </p>
