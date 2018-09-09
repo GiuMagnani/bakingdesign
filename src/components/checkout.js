@@ -41,7 +41,7 @@ const Checkout = class extends React.Component {
 
   componentDidMount() {
     this.stripeHandler = StripeCheckout.configure({
-      key: process.env.stripe_key,
+      key: "pk_test_1KGcomtVdO68QubliojcZPZ8",
       closed: () => {
         this.resetButton();
       },
