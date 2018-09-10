@@ -56,7 +56,7 @@ const Checkout = class extends React.Component {
       amount: amount,
       description: "A product well worth your time",
       token: token => {
-        fetch(`https://us-central1-baking-design-checkout.cloudfunctions.net/function-checkout`, {
+        fetch(`https://frmvulwtu1.execute-api.us-east-1.amazonaws.com/dev/checkout`, {
           method: "POST",
           body: JSON.stringify({
             token,
