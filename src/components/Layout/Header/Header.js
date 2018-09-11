@@ -7,7 +7,9 @@ class Header extends Component {
     console.log(this.props.links);
     return (
       <HeaderNav>
-        <img src={Logo} width={100} />
+        <a href="/" className="header-logo">
+        <img src={Logo} />
+        </a>
         <NavLinks>
           <li>
             <a href="/work">Work</a>
@@ -47,6 +49,15 @@ const HeaderNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px;
+  
+  .header-logo {
+    height: 100%;
+    
+    img {
+      height: 100%;
+    }
+  }
 `;
 
 const NavSocialLinks = styled.ul`

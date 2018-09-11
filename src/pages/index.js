@@ -5,6 +5,7 @@ import config from '../../data/SiteConfig';
 import PostListing from '../Posts/PostListing/PostListing';
 import SEO from '../components/SEO/SEO';
 import ProjectListing from '../Projects/ProjectListing/ProjectListing';
+import ProjectGrid from "../Projects/ProjectListing/ProjectGrid";
 
 class Index extends React.Component {
   render() {
@@ -20,6 +21,7 @@ class Index extends React.Component {
         <div>
           <hr />
           <strong>Projects:</strong>
+          <ProjectGrid />
           <ProjectListing projectEdges={projectEdges} />
           <hr />
           <strong>Posts:</strong>

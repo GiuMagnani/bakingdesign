@@ -34,9 +34,17 @@ class ProjectListing extends React.Component {
     return categories;
   }
 
+
+
   render() {
+
+
+
+
     const projectList = this.getProjects();
     console.log(this.getCategories());
+
+
 
     return (
       <div>
@@ -45,6 +53,13 @@ class ProjectListing extends React.Component {
             <li key={key}>{category.name}</li>
           ))}
         </ul>
+
+
+
+
+
+
+
         {/* Your post list here. */
         projectList.map(post => (
           <PostListContainer key={post.path}>
