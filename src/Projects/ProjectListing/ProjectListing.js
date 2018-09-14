@@ -42,7 +42,6 @@ class ProjectListing extends React.Component {
 
 
     const projectList = this.getProjects();
-    console.log(this.getCategories());
 
 
 

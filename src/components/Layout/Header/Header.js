@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 class Header extends Component {
   render() {
-    console.log(this.props.links);
     return (
       <HeaderNav>
         <a href="/" className="header-logo">

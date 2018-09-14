@@ -5,11 +5,10 @@ import config from '../../data/SiteConfig';
 import PostListing from '../Posts/PostListing/PostListing';
 import SEO from '../components/SEO/SEO';
 import ProjectListing from '../Projects/ProjectListing/ProjectListing';
-import ProjectGrid from "../Projects/ProjectListing/ProjectGrid";
+import ProjectGrid from '../Projects/ProjectListing/ProjectGrid';
 
 class Index extends React.Component {
   render() {
-    console.log(this.props.data);
     const postEdges = this.props.data.allWordpressPost.edges;
     const projectEdges = this.props.data.allWordpressWpProject.edges;
     return (
@@ -21,8 +20,8 @@ class Index extends React.Component {
         <div>
           <hr />
           <strong>Projects:</strong>
-          <ProjectGrid />
-          <ProjectListing projectEdges={projectEdges} />
+          <ProjectGrid projectEdges={projectEdges} />
+          {/*<ProjectListing projectEdges={projectEdges} />*/}
           <hr />
           <strong>Posts:</strong>
           <PostListing postEdges={postEdges} />
@@ -70,7 +69,14 @@ export const pageQuery = graphql`
             name
           }
           featured_media {
-            source_url
+            localFile {
+              childImageSharp {
+                resolutions(width: 300) {
+                  ...GatsbyImageSharpResolutions_withWebp
+                }
+              }
+              publicURL
+            }
           }
         }
       }

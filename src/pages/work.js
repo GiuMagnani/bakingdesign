@@ -5,27 +5,26 @@ import ProjectListing from '../Projects/ProjectListing/ProjectListing';
 
 class Work extends React.Component {
   render() {
-    const getCategories = () => {
-      let categories = [];
-      this.props.data.allWordpressWpProject.edges.map(work => {
-        work.node.categories.map(category => {
-          categories = [...categories, ...category];
-        });
-      });
-      return categories;
-    };
-    console.log(getCategories());
-    const projectList = this.props.data.allWordpressWpProject.edges;
+    // const getCategories = () => {
+    //   let categories = [];
+    //   this.props.data.allWordpressWpProject.edges.map(work => {
+    //     work.node.categories.map(category => {
+    //       categories = [...categories, ...category];
+    //     });
+    //   });
+    //   return categories;
+    // };
+    // const projectList = this.props.data.allWordpressWpProject.edges;
     return (
       <div>
         categories:
-        <ul>
-          {getCategories().map((category, key) => (
-            <li key={key}>{category.name}</li>
-          ))}
-          <li />
-        </ul>
-        <ProjectListing projectEdges={projectList} />
+        {/*<ul>*/}
+          {/*{getCategories().map((category, key) => (*/}
+            {/*<li key={key}>{category.name}</li>*/}
+          {/*))}*/}
+          {/*<li />*/}
+        {/*</ul>*/}
+        {/*<ProjectListing projectEdges={projectList} />*/}
       </div>
     );
   }
