@@ -11,6 +11,7 @@ class Index extends React.Component {
   render() {
     const postEdges = this.props.data.allWordpressPost.edges;
     const projectEdges = this.props.data.allWordpressWpProject.edges;
+    console.log(this.props);
     return (
       <div>
         <Helmet title={config.siteTitle} />
@@ -20,7 +21,7 @@ class Index extends React.Component {
         <div>
           <hr />
           <strong>Projects:</strong>
-          <ProjectGrid projectEdges={projectEdges} />
+          <ProjectGrid projectEdges={projectEdges} location={this.props.location}/>
           {/*<ProjectListing projectEdges={projectEdges} />*/}
           <hr />
           <strong>Posts:</strong>

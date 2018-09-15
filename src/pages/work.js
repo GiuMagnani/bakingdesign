@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'gatsby-link';
 import ProjectListing from '../Projects/ProjectListing/ProjectListing';
+import ProjectGrid from "../Projects/ProjectListing/ProjectGrid";
 
 class Work extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class Work extends React.Component {
     //   });
     //   return categories;
     // };
-    // const projectList = this.props.data.allWordpressWpProject.edges;
+    const projectEdges = this.props.data.allWordpressWpProject.edges;
     return (
       <div>
         categories:
@@ -25,6 +26,7 @@ class Work extends React.Component {
           {/*<li />*/}
         {/*</ul>*/}
         {/*<ProjectListing projectEdges={projectList} />*/}
+        <ProjectGrid projectEdges={projectEdges} location={this.props.location}/>
       </div>
     );
   }
@@ -59,7 +61,14 @@ export const pageQuery = graphql`
             name
           }
           featured_media {
-            source_url
+            localFile {
+              childImageSharp {
+                resolutions(width: 300) {
+                  ...GatsbyImageSharpResolutions_withWebp
+                }
+              }
+              publicURL
+            }
           }
         }
       }

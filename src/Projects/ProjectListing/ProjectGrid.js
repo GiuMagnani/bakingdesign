@@ -6,47 +6,53 @@ import {
   CellMeasurerCache,
   createMasonryCellPositioner,
   Masonry,
+  AutoSizer,
 } from 'react-virtualized';
 
 class ProjectGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
-      categories: []
+      images: [],
+      filteredImages: [],
+      categories: [],
+      columnCount: 4,
+      columnWidth: 300,
+      columnSpacer: 20,
     };
 
-
-
     this.cache = new CellMeasurerCache({
-      defaultHeight: 250,
+      defaultHeight: 300,
       defaultWidth: 300,
       fixedWidth: true,
     });
-    this.cellPositioner =  createMasonryCellPositioner({
+
+    this.cellPositioner = createMasonryCellPositioner({
       cellMeasurerCache: this.cache,
-      columnCount: 3,
-      columnWidth: 300,
-      spacer: 10,
-    })
+      columnCount: this.state.columnCount,
+      columnWidth: this.state.columnWidth,
+      spacer: this.state.columnSpacer,
+    });
 
-    this.setRef = this.setRef.bind(this);
-    this.cellRenderer = this.cellRenderer.bind(this);
+    this.grid = null;
+
+    this.setGridRef = element => {
+      this.grid = element;
+    };
   }
-
-  setRef = (ref) => this.gridRef = ref;
 
   componentWillMount() {
     const images = this.props.projectEdges.map(node => {
       const image = node.node.featured_media.localFile;
       return {
         slug: node.node.slug,
+        category: node.node.categories,
         height: !image.childImageSharp
           ? 300
           : image.childImageSharp.resolutions.height,
         src: !image.childImageSharp
           ? image.publicURL
-          : image.childImageSharp.resolutions.src,
+          : image.childImageSharp.resolutions.src
       };
     });
 
@@ -57,26 +63,25 @@ class ProjectGrid extends React.Component {
       });
     });
     const categories = Array.from(new Set(categoryNames));
-    this.setState({ images, categories });
-    console.log('test');
+    this.setState({ images, filteredImages: images, categories });
   }
 
-  componentDidMount() {
-    console.log('afasfa');
-  }
+  cellRenderer = data => ({ index, key, parent, style }) => {
+    const datum = data[index];
+    if (!datum) return;
 
-  cellRenderer = ({ index, key, parent, style }) => {
-    const datum = this.state.images[index];
+    const ratio = datum.height / 300;
+    const height = this.state.columnWidth * ratio;
 
     return (
       <CellMeasurer cache={this.cache} index={index} key={key} parent={parent}>
-        <div style={{ ...style}}>
-          <Link to={datum.slug}>
+        <div style={{ ...style, width: this.state.columnWidth, height}}>
+          <Link to={datum.slug} style={{width: '100%', height }}>
             <img
               src={datum.src}
               style={{
-                height: datum.height,
-                width: 300,
+                height,
+                width: this.state.columnWidth,
                 boxShadow: '0px 0px 15px rgba(0,0,0,0.1)',
               }}
             />
@@ -86,40 +91,106 @@ class ProjectGrid extends React.Component {
     );
   };
 
-  renderGrid() {
-    // Our masonry layout will use 3 columns with a 10px gutter between
-    // const cellPositioner = createMasonryCellPositioner({
-    //   cellMeasurerCache: cache,
-    //   columnCount: 3,
-    //   columnWidth: 300,
-    //   spacer: 10,
-    // });
+  onResize = ({ height, width }) => {
+    const imageWidth = 300;
+    const columnCount = Math.floor(width / imageWidth);
+    const innerWidth = width - (this.state.columnSpacer * (columnCount - 1));
+    const columnWidth = innerWidth / columnCount;
 
+    this.setState({
+      columnCount,
+      columnWidth,
+    });
+    this.cache.clearAll();
+
+    this.cellPositioner.reset({
+      columnCount,
+      columnWidth,
+      spacer: this.state.columnSpacer,
+    });
+    this.grid.clearCellPositions();
+
+    // this.grid.recomputeCellPositions();
+    // this.grid.recomputeRowHeights();
+  };
+
+  renderGrid(data, width) {
     return (
       <Masonry
-        ref={this.setRef}
-        cellCount={this.state.images.length}
+        ref={this.setGridRef}
+        cellCount={data.length}
         cellMeasurerCache={this.cache}
         cellPositioner={this.cellPositioner}
-        cellRenderer={this.cellRenderer}
+        cellRenderer={this.cellRenderer(data, width)}
         height={1000}
-        width={900}
+        width={width}
       />
-    )
+    );
   }
 
+  filterByCategory = inputCategory => {
+    const imageResults = [];
+
+    this.state.images.map(image => {
+      image.category.map(category => {
+        if (category.name === inputCategory) {
+          imageResults.push(image);
+        }
+      });
+    });
+
+    this.setState({ filteredImages: imageResults });
+  };
+
   render() {
-
-
     return (
       <div>
         {this.state.categories.map((category, key) => (
-          <li key={key}>{category}</li>
+          <li key={key} onClick={() => this.filterByCategory(category)}>
+            {category}
+          </li>
         ))}
-        {this.renderGrid()}
+        <AutoSizer disableHeight onResize={this.onResize}>
+          {({ height, width }) =>
+            this.renderGrid(this.state.filteredImages, width)
+          }
+        </AutoSizer>
+        {this.props.location.pathname === '/' ? (
+          <SeeMoreDiv>
+            <SeeMoreLink to={'/work'}>See more</SeeMoreLink>
+          </SeeMoreDiv>
+        ) : (
+          ''
+        )}
       </div>
     );
   }
 }
+
+const SeeMoreDiv = styled.div`
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 40%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -200px;
+  position: relative;
+  height: 180px;
+  padding-top: 50px;
+`;
+
+const SeeMoreLink = styled(Link)`
+  font-size: 16px;
+  padding: 13px 40px;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid blue;
+  color: blue;
+`;
 
 export default ProjectGrid;
