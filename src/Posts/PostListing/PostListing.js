@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'gatsby-link';
+import Img from 'gatsby-image';
 
 class PostListing extends React.Component {
   getPostList() {
@@ -12,57 +13,66 @@ class PostListing extends React.Component {
         title: postEdge.node.title,
         excerpt: postEdge.node.excerpt,
         mainCategory: postEdge.node.categories[0].name,
-        authorName: postEdge.node.author.name,
-        // featuredImg: postEdge.node.featured_media
-        //   ? postEdge.node.featured_media.source_url
-        //   : false,
+        featured_media: postEdge.node.featured_media.localFile.childImageSharp
+          .sizes
+          ? postEdge.node.featured_media.localFile.childImageSharp.sizes
+          : false,
       });
     });
     return postList;
   }
 
   render() {
+    console.log(this.props.postEdges);
     const postList = this.getPostList();
     return (
       <div>
-        {/* Your post list here. */
-        postList.map(post => (
-          <PostListContainer key={post.path}>
-            <Link className="post-link" to={post.path} key={post.title}>
-              {/*{post.featuredImg && (*/}
-                {/*<img*/}
-                  {/*src={post.featuredImg}*/}
-                  {/*alt={post.title}*/}
-                  {/*className="featured-image"*/}
-                {/*/>*/}
-              {/*)}*/}
+        <PostListContainer>
+          {/* Your post list here. */
+          postList.map(post => (
+            <PostItem className="post-link" to={post.path} key={post.title}>
+              {post.featured_media && (
+                <FeaturedImage sizes={post.featured_media} alt={post.title} />
+              )}
               <h3>{post.title}</h3>
-              <h5>
-                {post.date} in {post.mainCategory} by {post.authorName}
-              </h5>
               <div dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-            </Link>
-          </PostListContainer>
-        ))}
+            </PostItem>
+          ))}
+        </PostListContainer>
       </div>
     );
   }
 }
 
 const PostListContainer = styled.div`
-  margin: 50px 0;
+  display: flex;
+`;
+
+const PostItem = styled(Link)`
+  //width: 20%;
+  width: calc(33.33% - 30px);
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  margin: 15px;
+  overflow: hidden;
   
-  .featured-image {
-    width: 600px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 20px;
+  h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: bold;
   }
 
-  .post-link {
-    background: none !important;
-    padding: 0 !important;
+  div {
+    font-size: 14px;
   }
+`;
+
+const FeaturedImage = styled(Img)`
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 20px;
 `;
 
 export default PostListing;

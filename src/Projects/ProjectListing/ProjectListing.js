@@ -4,6 +4,7 @@ import Link from 'gatsby-link';
 
 class ProjectListing extends React.Component {
   getProjects() {
+    console.log(this.props.projectEdges);
     return this.props.projectEdges.map(postEdge => {
       return {
         path: `/${postEdge.node.slug}`,
@@ -40,7 +41,7 @@ class ProjectListing extends React.Component {
 
 
 
-
+    console.log(this.props);
     const projectList = this.getProjects();
 
 

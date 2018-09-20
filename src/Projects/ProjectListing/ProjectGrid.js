@@ -19,6 +19,7 @@ class ProjectGrid extends React.Component {
       columnCount: 4,
       columnWidth: 300,
       columnSpacer: 20,
+      selectedCategory: '',
     };
 
     this.cache = new CellMeasurerCache({
@@ -52,7 +53,7 @@ class ProjectGrid extends React.Component {
           : image.childImageSharp.resolutions.height,
         src: !image.childImageSharp
           ? image.publicURL
-          : image.childImageSharp.resolutions.src
+          : image.childImageSharp.resolutions.src,
       };
     });
 
@@ -75,8 +76,8 @@ class ProjectGrid extends React.Component {
 
     return (
       <CellMeasurer cache={this.cache} index={index} key={key} parent={parent}>
-        <div style={{ ...style, width: this.state.columnWidth, height}}>
-          <Link to={datum.slug} style={{width: '100%', height }}>
+        <div style={{ ...style, width: this.state.columnWidth, height }}>
+          <Link to={datum.slug} style={{ width: '100%', height }}>
             <img
               src={datum.src}
               style={{
@@ -94,7 +95,7 @@ class ProjectGrid extends React.Component {
   onResize = ({ height, width }) => {
     const imageWidth = 300;
     const columnCount = Math.floor(width / imageWidth);
-    const innerWidth = width - (this.state.columnSpacer * (columnCount - 1));
+    const innerWidth = width - this.state.columnSpacer * (columnCount - 1);
     const columnWidth = innerWidth / columnCount;
 
     this.setState({
@@ -131,6 +132,13 @@ class ProjectGrid extends React.Component {
   filterByCategory = inputCategory => {
     const imageResults = [];
 
+    if (inputCategory === this.state.selectedCategory) {
+      return this.setState({
+        selectedCategory: '',
+        filteredImages: this.state.images,
+      });
+    }
+
     this.state.images.map(image => {
       image.category.map(category => {
         if (category.name === inputCategory) {
@@ -139,17 +147,28 @@ class ProjectGrid extends React.Component {
       });
     });
 
-    this.setState({ filteredImages: imageResults });
+    this.setState({
+      selectedCategory: inputCategory,
+      filteredImages: imageResults,
+    });
   };
 
   render() {
     return (
       <div>
-        {this.state.categories.map((category, key) => (
-          <li key={key} onClick={() => this.filterByCategory(category)}>
-            {category}
-          </li>
-        ))}
+        <CategoryList>
+          {this.state.categories.map((category, key) => (
+            <li
+              key={key}
+              onClick={() => this.filterByCategory(category)}
+              className={
+                this.state.selectedCategory === category ? 'active' : ''
+              }
+            >
+              {category}
+            </li>
+          ))}
+        </CategoryList>
         <AutoSizer disableHeight onResize={this.onResize}>
           {({ height, width }) =>
             this.renderGrid(this.state.filteredImages, width)
@@ -189,8 +208,28 @@ const SeeMoreLink = styled(Link)`
   padding: 13px 40px;
   text-align: center;
   text-decoration: none;
-  border: 2px solid blue;
-  color: blue;
+  border: 2px solid #ff6767;
+  background-color: #ff6767;
+  color: white;
+  border-radius: 50px;
+`;
+
+const CategoryList = styled.ul`
+  li {
+    border-radius: 50px;
+    border: 2px solid #ff6767;
+    background-color: white;
+    color: #ff6767;
+    padding: 5px 15px;
+    display: inline-block;
+    margin: 15px 10px;
+    cursor: pointer;
+  }
+
+  li.active {
+    background-color: #ff6767;
+    color: white;
+  }
 `;
 
 export default ProjectGrid;
