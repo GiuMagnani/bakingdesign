@@ -1,6 +1,7 @@
 import React from 'react';
+// import { graphql } from 'gatsby';
 
-class Contact extends React.Component {
+export default class Contact extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,7 +87,6 @@ class Contact extends React.Component {
   }
 }
 
-export default Contact;
 //
 // export const pageQuery = graphql`
 //   query WorkQuery {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 
 // hardcoded amount (in US cents) to charge users

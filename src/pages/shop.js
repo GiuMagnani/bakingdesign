@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import Link from 'gatsby-link';
-import ProjectListing from '../Projects/ProjectListing/ProjectListing';
+// import styled from 'styled-components';
+// import { Link } from "gatsby";
+// import ProjectListing from '../Projects/ProjectListing/ProjectListing';
 import Checkout from "../components/checkout";
 
-class Shop extends React.Component {
+export default class Shop extends React.Component {
   render() {
     return (
       <div>
@@ -14,5 +14,3 @@ class Shop extends React.Component {
     );
   }
 }
-
-export default Shop;

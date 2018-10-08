@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Link from 'gatsby-link';
+import { Link } from "gatsby";
 import {
   CellMeasurer,
   CellMeasurerCache,
@@ -9,7 +9,7 @@ import {
   AutoSizer,
 } from 'react-virtualized';
 
-class ProjectGrid extends React.Component {
+export default class ProjectGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ class ProjectGrid extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const images = this.props.projectEdges.map(node => {
       const image = node.node.featured_media.localFile;
       return {
@@ -59,8 +59,8 @@ class ProjectGrid extends React.Component {
 
     let categoryNames = [];
     this.props.projectEdges.map(work => {
-      work.node.categories.map(category => {
-        categoryNames.push(category.name);
+      return work.node.categories.map(category => {
+        return categoryNames.push(category.name);
       });
     });
     const categories = Array.from(new Set(categoryNames));
@@ -80,6 +80,7 @@ class ProjectGrid extends React.Component {
           <Link to={datum.slug} style={{ width: '100%', height }}>
             <img
               src={datum.src}
+              alt={datum.slug}
               style={{
                 height,
                 width: this.state.columnWidth,
@@ -140,9 +141,9 @@ class ProjectGrid extends React.Component {
     }
 
     this.state.images.map(image => {
-      image.category.map(category => {
+      return image.category.map(category => {
         if (category.name === inputCategory) {
-          imageResults.push(image);
+          return imageResults.push(image);
         }
       });
     });
@@ -231,5 +232,3 @@ const CategoryList = styled.ul`
     color: white;
   }
 `;
-
-export default ProjectGrid;

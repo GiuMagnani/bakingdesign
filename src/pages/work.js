@@ -1,10 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import Link from 'gatsby-link';
-import ProjectListing from '../Projects/ProjectListing/ProjectListing';
+// import styled from 'styled-components';
+// import { Link } from "gatsby";
+// import ProjectListing from '../Projects/ProjectListing/ProjectListing';
 import ProjectGrid from "../Projects/ProjectListing/ProjectGrid";
+import { graphql } from 'gatsby';
 
-class Work extends React.Component {
+export default class Work extends React.Component {
   render() {
     // const getCategories = () => {
     //   let categories = [];
@@ -32,23 +33,21 @@ class Work extends React.Component {
   }
 }
 
-const PostListContainer = styled.div`
-  margin: 50px 0;
-
-  .featured-image {
-    width: 600px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 20px;
-  }
-
-  .post-link {
-    background: none !important;
-    padding: 0 !important;
-  }
-`;
-
-export default Work;
+// const PostListContainer = styled.div`
+//   margin: 50px 0;
+//
+//   .featured-image {
+//     width: 600px;
+//     height: 200px;
+//     object-fit: cover;
+//     margin-bottom: 20px;
+//   }
+//
+//   .post-link {
+//     background: none !important;
+//     padding: 0 !important;
+//   }
+// `;
 
 export const pageQuery = graphql`
   query WorkQuery {

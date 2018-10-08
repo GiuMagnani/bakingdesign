@@ -1,10 +1,11 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import config from '../../data/SiteConfig';
-import Header from '../components/Layout/Header/Header';
-import './reset.css';
+import config from '../../../data/SiteConfig';
+import Header from './Header/Header';
+import '../../layouts/reset.css';
 import './style.css';
 
+// export default ({ children, location }) => (
 export default class MainLayout extends React.Component {
   getLocalTitle() {
     function capitalize(string) {
@@ -43,14 +44,14 @@ export default class MainLayout extends React.Component {
   render() {
     const { children } = this.props;
     return (
-      <div>
+      <>
         <Helmet>
           <title>{`${config.siteTitle} |  ${this.getLocalTitle()}`}</title>
           <meta name="description" content={config.siteDescription} />
         </Helmet>
         <Header />
-        {children()}
-      </div>
+        <div>{children}</div>
+      </>
     );
   }
 }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Logo from '../../logo-baking-design.png';
 import styled from 'styled-components';
-import Link from 'gatsby-link';
+import { Link } from "gatsby";
+import HeaderCommissions from "./HeaderCommissions";
 
 class Header extends Component {
   render() {
@@ -84,6 +85,7 @@ class Header extends Component {
             </a>
           </li>
         </NavSocialLinks>
+        <HeaderCommissions commissionsAreOpen={true} />
       </HeaderNav>
     );
   }
@@ -114,6 +116,7 @@ const HeaderNav = styled.nav`
   align-items: center;
   justify-content: flex-start;
   padding: 10px;
+  position: relative;
 `;
 
 const NavSocialLinks = styled.ul`

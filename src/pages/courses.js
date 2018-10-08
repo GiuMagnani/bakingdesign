@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import Link from 'gatsby-link';
-import ProjectListing from '../Projects/ProjectListing/ProjectListing';
+// import styled from 'styled-components';
+// import { Link } from "gatsby";
+// import ProjectListing from '../Projects/ProjectListing/ProjectListing';
 
-class Courses extends React.Component {
+export default class Courses extends React.Component {
   render() {
     return (
       <div>
@@ -12,5 +12,3 @@ class Courses extends React.Component {
     );
   }
 }
-
-export default Courses;

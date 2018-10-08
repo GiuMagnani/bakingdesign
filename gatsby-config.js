@@ -80,6 +80,12 @@ module.exports = {
         name: "pages",
       },
     },
+    {
+      resolve: `gatsby-source-instagram-all`,
+      options: {
+        access_token: "397136835.139d409.44dc085374a441dabc94ede27b758e79"
+      }
+    },
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-stripe-checkout',

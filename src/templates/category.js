@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import config from '../../data/SiteConfig'
 import PostListing from '../Posts/PostListing/PostListing'
+import { graphql } from 'gatsby';
 
 export default class CategoryTemplate extends React.Component {
   render() {
@@ -38,7 +39,7 @@ const MainContentContainer = styled.main`
   pre {
     background-color: grey;
   }
-`
+`;
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`

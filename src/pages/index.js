@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import config from '../../data/SiteConfig';
 import PostListing from '../Posts/PostListing/PostListing';
 import SEO from '../components/SEO/SEO';
-import ProjectListing from '../Projects/ProjectListing/ProjectListing';
+// import ProjectListing from '../Projects/ProjectListing/ProjectListing';
 import ProjectGrid from '../Projects/ProjectListing/ProjectGrid';
+import { graphql } from 'gatsby';
+import InstagramFeed from "../components/InstagramFeed";
 
 class Index extends React.Component {
   render() {
     const postEdges = this.props.data.allWordpressPost.edges;
     const projectEdges = this.props.data.allWordpressWpProject.edges;
-    console.log(this.props);
+    const instagramPosts = this.props.data.allInstagramContent.edges;
     return (
       <div>
         <Helmet title={config.siteTitle} />
@@ -30,9 +32,12 @@ class Index extends React.Component {
             projectEdges={projectEdges}
             location={this.props.location}
           />
-          <AboutSection></AboutSection>
+          <AboutSection>
+            Hola, soy Susas.
+          </AboutSection>
           <PostListing postEdges={postEdges} />
         </div>
+        <InstagramFeed instagramPosts={instagramPosts}/>
       </div>
     );
   }
@@ -44,51 +49,51 @@ export default Index;
 // featured_media {
 //   source_url
 // }
-const WaveContainer = styled.div`
-  height: 5%;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background: #015871;
-`;
-
-const WaveDiv = styled.div`
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg)
-    repeat-x;
-  position: absolute;
-  top: -198px;
-  width: 6400px;
-  height: 198px;
-  animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-  transform: translate3d(0, 0, 0);
-  
-  &:nth-of-type(2) {
-    top: -175px;
-    animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
-      swell 30s ease -1.25s infinite;
-    opacity: 1;
-  }
-  
-  @keyframes wave {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-1600px);
-    }
-  }
-  
-  @keyframes swell {
-    0%,
-    100% {
-      transform: translate3d(0, -25px, 0);
-    }
-    50% {
-      transform: translate3d(0, 5px, 0);
-    }
-  }
-`;
+// const WaveContainer = styled.div`
+//   height: 5%;
+//   width: 100%;
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   background: #015871;
+// `;
+//
+// const WaveDiv = styled.div`
+//   background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg)
+//     repeat-x;
+//   position: absolute;
+//   top: -198px;
+//   width: 6400px;
+//   height: 198px;
+//   animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+//   transform: translate3d(0, 0, 0);
+//
+//   &:nth-of-type(2) {
+//     top: -175px;
+//     animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
+//       swell 30s ease -1.25s infinite;
+//     opacity: 1;
+//   }
+//
+//   @keyframes wave {
+//     0% {
+//       transform: translateX(0);
+//     }
+//     100% {
+//       transform: translateX(-1600px);
+//     }
+//   }
+//
+//   @keyframes swell {
+//     0%,
+//     100% {
+//       transform: translate3d(0, -25px, 0);
+//     }
+//     50% {
+//       transform: translate3d(0, 5px, 0);
+//     }
+//   }
+// `;
 
 const HeroSection = styled.div`
   height: 100vh;
@@ -153,6 +158,23 @@ export const pageQuery = graphql`
         node {
           title
           slug
+        }
+      }
+    }
+    allInstagramContent(limit: 6) {
+      edges {
+        node {
+          caption {
+            text
+          }
+          localImage{ 
+             childImageSharp {
+               fluid(maxHeight: 500, maxWidth: 500 quality: 90) {
+                 ...GatsbyImageSharpFluid_withWebp
+               }
+             }
+           }
+          link
         }
       }
     }

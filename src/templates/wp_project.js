@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { graphql } from 'gatsby';
 
 class wpProject extends Component {
   render() {

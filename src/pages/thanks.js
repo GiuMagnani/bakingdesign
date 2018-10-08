@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import Link from 'gatsby-link';
+// import styled from 'styled-components';
+// import { Link } from "gatsby";
 
-class Thanks extends React.Component {
+export default class Thanks extends React.Component {
   render() {
     return (
       <div>
@@ -11,5 +11,3 @@ class Thanks extends React.Component {
     );
   }
 }
-
-export default Thanks;
