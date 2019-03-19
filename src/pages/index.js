@@ -167,6 +167,7 @@ export const pageQuery = graphql`
           caption {
             text
           }
+          link
           localImage{ 
              childImageSharp {
                fluid(maxHeight: 500, maxWidth: 500 quality: 90) {
@@ -174,7 +175,6 @@ export const pageQuery = graphql`
                }
              }
            }
-          link
         }
       }
     }

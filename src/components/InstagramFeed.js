@@ -5,13 +5,16 @@ import styled from 'styled-components';
 export default class InstagramFeed extends React.Component {
   render() {
     const { instagramPosts } = this.props;
+    console.log(instagramPosts);
     return (
       <PostsContainer>
         {
           instagramPosts.map((post, index) => {
             return (
               <PostImg href={post.node.link} key={index}>
-                <Img sizes={post.node.localImage.childImageSharp.fluid} alt={post.node.caption.text} />
+                { post.node.localImage.childImageSharp &&
+                  <Img sizes={ post.node.localImage.childImageSharp.fluid } alt={ post.node.caption.text } />
+                }
               </PostImg>
             )
           })
