@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logo from '../../logo-baking-design.png';
+import Logo from '../../../images/logo-baking-design.png';
 import styled from 'styled-components';
 import { Link } from "gatsby";
 import HeaderCommissions from "./HeaderCommissions";

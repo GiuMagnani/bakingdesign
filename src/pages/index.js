@@ -1,13 +1,14 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
-import config from '../../data/SiteConfig';
-import PostListing from '../Posts/PostListing/PostListing';
-import SEO from '../components/SEO/SEO';
+import React from "react";
+import Helmet from "react-helmet";
+import styled from "styled-components";
+import config from "../../data/SiteConfig";
+import PostListing from "../Posts/PostListing/PostListing";
+import SEO from "../components/SEO/SEO";
 // import ProjectListing from '../Projects/ProjectListing/ProjectListing';
-import ProjectGrid from '../Projects/ProjectListing/ProjectGrid';
-import { graphql } from 'gatsby';
+import ProjectGrid from "../Projects/ProjectListing/ProjectGrid";
+import { graphql } from "gatsby";
 import InstagramFeed from "../components/InstagramFeed";
+import bgImage from "../images/bg-baking-design.jpg";
 
 class Index extends React.Component {
   render() {
@@ -19,8 +20,18 @@ class Index extends React.Component {
         <Helmet title={config.siteTitle} />
         <SEO postEdges={postEdges} />
         <HeroSection>
-          <em>When in doubt</em>
-          <h2>Do it all</h2>
+          <Text
+            style={{
+              backgroundImage: `url(${bgImage})`,
+            }}>
+            {/*<em>When in doubt</em>*/}
+            {/*<h2>Do it all</h2>*/}
+            <div>
+              <span>Hello! I'm</span>
+              <h1>Baking Design</h1>
+            </div>
+            <h2>lettering artist - illustrator - graphic designer - Crafter</h2>
+          </Text>
           {/*<WaveContainer>*/}
           {/*<WaveDiv />*/}
           {/*<WaveDiv />*/}
@@ -32,16 +43,70 @@ class Index extends React.Component {
             projectEdges={projectEdges}
             location={this.props.location}
           />
-          <AboutSection>
-            Hola, soy Susas.
-          </AboutSection>
+          <AboutSection>Hola, soy Susas.</AboutSection>
           <PostListing postEdges={postEdges} />
         </div>
-        <InstagramFeed instagramPosts={instagramPosts}/>
+        <InstagramFeed instagramPosts={instagramPosts} />
       </div>
     );
   }
 }
+
+const Text = styled.div`
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  
+
+  h1 {
+    font-size: 200px;
+  }
+
+  h2 {
+    color: black;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: black;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: normal;
+    font-family: sans-serif;
+  }
+
+  span {
+    font-size: 18px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: inherit;
+    background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: calc(1rem + 50px);
+    left: 2rem;
+    height: calc(100% - (3rem + 50px));
+    width: calc(100% - 4rem);
+    background-color: white;
+  }
+`;
 
 export default Index;
 
@@ -102,7 +167,7 @@ const HeroSection = styled.div`
 const AboutSection = styled.div`
   height: 30vh;
   width: 100%;
-  background-color: #50E3C2;
+  background-color: #50e3c2;
   margin-bottom: -50px;
 `;
 
@@ -168,13 +233,13 @@ export const pageQuery = graphql`
             text
           }
           link
-          localImage{ 
-             childImageSharp {
-               fluid(maxHeight: 500, maxWidth: 500 quality: 90) {
-                 ...GatsbyImageSharpFluid_withWebp
-               }
-             }
-           }
+          localImage {
+            childImageSharp {
+              fluid(maxHeight: 500, maxWidth: 500, quality: 90) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
         }
       }
     }
