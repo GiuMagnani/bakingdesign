@@ -1,14 +1,14 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import Link from 'gatsby-link';
+import { Link } from "gatsby";
 // import UserInfo from '../components/Accessories/UserInfo/UserInfo'
 // import Disqus from '../components/Accessories/Disqus/Disqus'
 // import PostTags from '../components/Posts/PostTags/PostTags'
 // import SocialLinks from '../components/Accessories/SocialLinks/SocialLinks'
 import SEO from '../components/SEO/SEO';
 import config from '../../data/SiteConfig';
-import TopNavigation from '../components/Layout/Navigation/Navigation'
+import { graphql } from 'gatsby';
 
 export default class PostTemplate extends React.Component {
   render() {
@@ -26,7 +26,6 @@ export default class PostTemplate extends React.Component {
           <title>{`${postNode.title} | ${config.siteTitle}`}</title>
         </Helmet>
         <SEO postPath={slug} postNode={postNode} postSEO />
-        <TopNavigation />
         <PostContainer>
           <h1>{postNode.title} </h1>
           <MetaSection>

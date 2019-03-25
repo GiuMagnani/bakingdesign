@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-// import TopNavigation from '../components/Layout/Navigation/Navigation'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { graphql } from 'gatsby';
 
 class wpPage extends Component {
   render() {
@@ -8,12 +8,13 @@ class wpPage extends Component {
       title: this.props.data.wordpressPage.title,
       content: this.props.data.wordpressPage.content,
       id: this.props.data.wordpressPage.id,
-      slug: this.props.data.wordpressPage.slug
-    }
+      slug: this.props.data.wordpressPage.slug,
+    };
+
+    console.log(this.props);
 
     return (
       <div>
-        {/*<TopNavigation />*/}
         <MainContentContainer>
           <h1>{pageNode.title}</h1>
           <main>
@@ -21,11 +22,11 @@ class wpPage extends Component {
           </main>
         </MainContentContainer>
       </div>
-    )
+    );
   }
 }
 
-export default wpPage
+export default wpPage;
 
 const MainContentContainer = styled.main`
   max-width: 800px;
@@ -45,7 +46,7 @@ const MainContentContainer = styled.main`
   pre {
     background-color: grey;
   }
-`
+`;
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
@@ -59,4 +60,4 @@ export const pageQuery = graphql`
       content
     }
   }
-`
+`;

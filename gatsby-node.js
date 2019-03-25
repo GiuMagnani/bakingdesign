@@ -47,15 +47,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         }
         // Create those pages with the wp_page.jsx template.
         const pageTemplate = path.resolve(`./src/templates/wp_page.js`);
-        _.each(result.data.allWordpressPage.edges, edge => {
-          createPage({
-            path: `/${edge.node.slug}/`,
-            component: slash(pageTemplate),
-            context: {
-              id: edge.node.id,
-            },
-          });
-        });
+        // _.each(result.data.allWordpressPage.edges, edge => {
+        //   createPage({
+        //     path: `/${edge.node.slug}/`,
+        //     component: slash(pageTemplate),
+        //     context: {
+        //       slug: edge.node.slug,
+        //     },
+        //   });
+        // });
       })
       .then(() => {
         graphql(
@@ -85,7 +85,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               path: `/${edge.node.slug}/`,
               component: slash(pageTemplate),
               context: {
-                id: edge.node.id,
+                slug: edge.node.slug,
               },
             });
           });
@@ -140,21 +140,21 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
           // Create pages for each unique category
 
-          const categoriesTemplate = path.resolve(
-            `./src/templates/category.js`,
-          );
-
-          const catSet = new Set(categories);
-
-          catSet.forEach(cat => {
-            createPage({
-              path: `/category/${_.kebabCase(cat)}/`,
-              component: slash(categoriesTemplate),
-              context: {
-                id: cat,
-              },
-            });
-          });
+          // const categoriesTemplate = path.resolve(
+          //   `./src/templates/category.js`,
+          // );
+          //
+          // const catSet = new Set(categories);
+          //
+          // catSet.forEach(cat => {
+          //   createPage({
+          //     path: `/category/${_.kebabCase(cat)}/`,
+          //     component: slash(categoriesTemplate),
+          //     context: {
+          //       id: cat,
+          //     },
+          //   });
+          // });
           resolve();
         });
       });
@@ -163,8 +163,10 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   });
 };
 
-exports.modifyWebpackConfig = ({ config, stage }) => {
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
   if (stage === 'build-javascript') {
-    config.plugin('Lodash', webpackLodashPlugin, null);
+    actions.setWebpackConfig({
+      plugins: [webpackLodashPlugin],
+    })
   }
 };

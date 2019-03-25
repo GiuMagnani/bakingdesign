@@ -1,27 +1,112 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
-import config from '../../data/SiteConfig';
-import PostListing from '../Posts/PostListing/PostListing'
-import SEO from '../components/SEO/SEO'
-// import TopNavigation from '../components/Layout/Navigation/Navigation'
+import React from "react";
+import Helmet from "react-helmet";
+import styled from "styled-components";
+import config from "../../data/SiteConfig";
+import PostListing from "../Posts/PostListing/PostListing";
+import SEO from "../components/SEO/SEO";
+// import ProjectListing from '../Projects/ProjectListing/ProjectListing';
+import ProjectGrid from "../Projects/ProjectListing/ProjectGrid";
+import { graphql } from "gatsby";
+import InstagramFeed from "../components/InstagramFeed";
+import bgImage from "../images/bg-baking-design.jpg";
 
 class Index extends React.Component {
   render() {
-    console.log(this.props.data);
     const postEdges = this.props.data.allWordpressPost.edges;
+    const projectEdges = this.props.data.allWordpressWpProject.edges;
+    const instagramPosts = this.props.data.allInstagramContent.edges;
     return (
       <div>
         <Helmet title={config.siteTitle} />
         <SEO postEdges={postEdges} />
+        <HeroSection>
+          <Text
+            style={{
+              backgroundImage: `url(${bgImage})`,
+            }}>
+            {/*<em>When in doubt</em>*/}
+            {/*<h2>Do it all</h2>*/}
+            <div>
+              <span>Hello! I'm</span>
+              <h1>Baking Design</h1>
+            </div>
+            <h2>lettering artist - illustrator - graphic designer - Crafter</h2>
+          </Text>
+          {/*<WaveContainer>*/}
+          {/*<WaveDiv />*/}
+          {/*<WaveDiv />*/}
+          {/*</WaveContainer>*/}
+        </HeroSection>
         <div>
-          Hola Gatsby + WordPress.org
+          <strong>Projects:</strong>
+          <ProjectGrid
+            projectEdges={projectEdges}
+            location={this.props.location}
+          />
+          <AboutSection>Hola, soy Susas.</AboutSection>
           <PostListing postEdges={postEdges} />
         </div>
+        <InstagramFeed instagramPosts={instagramPosts} />
       </div>
     );
   }
 }
+
+const Text = styled.div`
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  
+
+  h1 {
+    font-size: 200px;
+  }
+
+  h2 {
+    color: black;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: black;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: normal;
+    font-family: sans-serif;
+  }
+
+  span {
+    font-size: 18px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: inherit;
+    background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: calc(1rem + 50px);
+    left: 2rem;
+    height: calc(100% - (3rem + 50px));
+    width: calc(100% - 4rem);
+    background-color: white;
+  }
+`;
 
 export default Index;
 
@@ -29,6 +114,62 @@ export default Index;
 // featured_media {
 //   source_url
 // }
+// const WaveContainer = styled.div`
+//   height: 5%;
+//   width: 100%;
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   background: #015871;
+// `;
+//
+// const WaveDiv = styled.div`
+//   background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg)
+//     repeat-x;
+//   position: absolute;
+//   top: -198px;
+//   width: 6400px;
+//   height: 198px;
+//   animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+//   transform: translate3d(0, 0, 0);
+//
+//   &:nth-of-type(2) {
+//     top: -175px;
+//     animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
+//       swell 30s ease -1.25s infinite;
+//     opacity: 1;
+//   }
+//
+//   @keyframes wave {
+//     0% {
+//       transform: translateX(0);
+//     }
+//     100% {
+//       transform: translateX(-1600px);
+//     }
+//   }
+//
+//   @keyframes swell {
+//     0%,
+//     100% {
+//       transform: translate3d(0, -25px, 0);
+//     }
+//     50% {
+//       transform: translate3d(0, 5px, 0);
+//     }
+//   }
+// `;
+
+const HeroSection = styled.div`
+  height: 100vh;
+`;
+
+const AboutSection = styled.div`
+  height: 30vh;
+  width: 100%;
+  background-color: #50e3c2;
+  margin-bottom: -50px;
+`;
 
 export const pageQuery = graphql`
   query IndexQuery {
@@ -38,16 +179,67 @@ export const pageQuery = graphql`
           date
           slug
           title
-          modified
           excerpt
           id
-          author {
-            name
-          }
           categories {
             name
           }
-          content
+          featured_media {
+            localFile {
+              childImageSharp {
+                sizes(quality: 90, maxWidth: 600) {
+                  ...GatsbyImageSharpSizes_withWebp
+                }
+              }
+              publicURL
+            }
+          }
+        }
+      }
+    }
+    allWordpressWpProject {
+      edges {
+        node {
+          title
+          slug
+          categories {
+            name
+          }
+          featured_media {
+            localFile {
+              childImageSharp {
+                resolutions(width: 300) {
+                  ...GatsbyImageSharpResolutions_withWebp
+                }
+              }
+              publicURL
+            }
+          }
+        }
+      }
+    }
+    allWordpressPage {
+      edges {
+        node {
+          title
+          slug
+        }
+      }
+    }
+    allInstagramContent(limit: 6) {
+      edges {
+        node {
+          caption {
+            text
+          }
+          link
+          localImage {
+            childImageSharp {
+              fluid(maxHeight: 500, maxWidth: 500, quality: 90) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
         }
       }
     }

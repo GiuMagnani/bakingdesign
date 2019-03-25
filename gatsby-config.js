@@ -20,14 +20,12 @@ module.exports = {
       feed_url: config.siteUrl + pathPrefix + config.siteRss,
       title: config.siteTitle,
       description: config.siteDescription,
-      image_url: `${config.siteUrl + pathPrefix}/logos/logo-512.png`,
+      image_url: `${ config.siteUrl + pathPrefix }/logos/logo-512x512.png`,
       author: config.userName,
       copyright: config.copyright,
     },
   },
   plugins: [
-    'gatsby-plugin-styled-components',
-    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-wordpress',
       options: {
@@ -39,22 +37,18 @@ module.exports = {
         verboseOutput: true,
       },
     },
-    // {
-    //   resolve: 'gatsby-plugin-google-analytics',
-    //   options: {
-    //     trackingId: config.googleAnalyticsID,
-    //   },
-    // },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: config.googleAnalyticsID,
+      },
+    },
     {
       resolve: 'gatsby-plugin-nprogress',
       options: {
         color: config.themeColor,
       },
     },
-    'gatsby-plugin-sharp',
-    'gatsby-plugin-catch-links',
-    'gatsby-plugin-twitter',
-    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
@@ -72,6 +66,11 @@ module.exports = {
             type: 'image/png',
           },
           {
+            src: '/logos/logo-256x256.png',
+            sizes: '256x256',
+            type: 'image/png',
+          },
+          {
             src: '/logos/logo-512x512.png',
             sizes: '512x512',
             type: 'image/png',
@@ -79,6 +78,30 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${ __dirname }/src/pages`,
+        name: "pages",
+      },
+    },
+    {
+      resolve:
+        `gatsby-source-instagram-all`,
+      options: {
+        access_token: process.env.instagram_api
+      }
+    },
+    'gatsby-plugin-styled-components',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-catch-links',
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-offline',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
+    'gatsby-image',
+    'gatsby-remark-copy-linked-files',
+    'gatsby-plugin-netlify'
   ],
-};
+}
+;
