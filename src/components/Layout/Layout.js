@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import config from "../../../data/SiteConfig";
 import Header from "./Header/Header";
 import "../../layouts/reset.css";
-import "./style.css";
+import "../../layouts/style.css";
 
 // export default ({ children, location }) => (
 export default class MainLayout extends React.Component {
@@ -50,7 +50,7 @@ export default class MainLayout extends React.Component {
           <meta name="description" content={config.siteDescription} />
         </Helmet>
         <Header />
-        <div>{children}</div>
+        <main>{children}</main>
       </>
     );
   }
