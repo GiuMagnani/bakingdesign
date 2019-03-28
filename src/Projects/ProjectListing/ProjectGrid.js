@@ -59,7 +59,7 @@ export default class ProjectGrid extends React.Component {
 
     let categoryNames = [];
     this.props.projectEdges.map(work => {
-      return work.node.categories.map(category => {
+      return work.node.categories && work.node.categories.map(category => {
         return categoryNames.push(category.name);
       });
     });
@@ -141,7 +141,7 @@ export default class ProjectGrid extends React.Component {
     }
 
     this.state.images.map(image => {
-      return image.category.map(category => {
+      return image.category && image.category.map(category => {
         if (category.name === inputCategory) {
           return imageResults.push(image);
         }
