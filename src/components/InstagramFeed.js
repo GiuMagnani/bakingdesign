@@ -5,7 +5,6 @@ import styled from 'styled-components';
 export default class InstagramFeed extends React.Component {
   render() {
     const { instagramPosts } = this.props;
-    console.log(instagramPosts);
     return (
       <PostsContainer>
         {

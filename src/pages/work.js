@@ -62,7 +62,7 @@ export const pageQuery = graphql`
           featured_media {
             localFile {
               childImageSharp {
-                resolutions(width: 300) {
+                resolutions(quality: 100, width: 300) {
                   ...GatsbyImageSharpResolutions_withWebp
                 }
               }

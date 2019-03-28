@@ -23,7 +23,6 @@ class PostListing extends React.Component {
   }
 
   render() {
-    console.log(this.props.postEdges);
     const postList = this.getPostList();
     return (
       <div>
