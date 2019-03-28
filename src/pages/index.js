@@ -187,7 +187,7 @@ export const pageQuery = graphql`
           featured_media {
             localFile {
               childImageSharp {
-                sizes(quality: 90, maxWidth: 600) {
+                sizes(quality: 100, maxWidth: 600) {
                   ...GatsbyImageSharpSizes_withWebp
                 }
               }
@@ -208,8 +208,8 @@ export const pageQuery = graphql`
           featured_media {
             localFile {
               childImageSharp {
-                resolutions(width: 300) {
-                  ...GatsbyImageSharpResolutions_withWebp
+                sizes(quality: 100, maxWidth: 300) {
+                  ...GatsbyImageSharpSizes_withWebp
                 }
               }
               publicURL
@@ -235,7 +235,7 @@ export const pageQuery = graphql`
           link
           localImage {
             childImageSharp {
-              fluid(maxHeight: 500, maxWidth: 500, quality: 90) {
+              fluid(maxHeight: 500, maxWidth: 500, quality: 100) {
                 ...GatsbyImageSharpFluid_withWebp
               }
             }
